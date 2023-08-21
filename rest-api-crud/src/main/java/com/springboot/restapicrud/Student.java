@@ -9,9 +9,8 @@ import jakarta.persistence.Id;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String major;
 	public Long getId() {
@@ -37,5 +36,5 @@ public class Student {
 		return "Student [id=" + id + ", name=" + name + ", major=" + major + "]";
 	}
 
-    // Getters and setters
+ 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,9 +27,14 @@ public class StudentController {
         return studentRepository.findAll();
     }
 
+    //@PostMapping
+    //public Student createStudent(@RequestBody Student student) {
+     //   return studentRepository.save(student);
+    //}
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentRepository.save(student);
+    public List<Student> createStudents(@RequestBody List<Student> students) {
+   
+    	return studentRepository.saveAll(students);
     }
 
     @GetMapping("/{id}")
@@ -38,6 +44,17 @@ public class StudentController {
             return ResponseEntity.ok(student.get());
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/multiple")
+    public ResponseEntity<List<Student>> getCoursesByIds(@RequestParam List<Long> ids) {
+        List<Student> students = studentRepository.findAllById(ids);
+
+        if (students.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(students);
         }
     }
 
